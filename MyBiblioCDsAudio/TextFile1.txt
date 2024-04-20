@@ -1,0 +1,311 @@
+        private static bool MatchImg(ref string url, ref string text, List<ImgCoverInfo> _coverList, AudioCD FoundCD, ref int numfile)
+        {
+            LogProj.Info("MatchImg(ref string text, ref List<ImgCoverInfo> _coverList, ref int numfile)");
+            string pattern = @"Cover Art \(\d?\)";
+            Regex rx = new Regex(pattern);
+            string[] div = rx.Split(text);
+            if (div.Length >= 2)
+                text = div[1];
+            url = url.Remove(0, @"https://musicbrainz.org".Length);
+            url = "//coverartarchive.org" + url;
+            url = url.Remove(url.IndexOf(@"cover-art"), @"cover-art".Length);
+            string regEX = url + @"(\d*.jpg)" + "|" + url + @"(\d*-\d*.jpg)";
+
+            Regex rx1 = new Regex(regEX);
+            MatchCollection matches = rx1.Matches(text);
+            List<string> list = new List<string>();
+            foreach (Match match in matches)
+            {
+                list.Add(match.Value);
+            }
+            list = list.Distinct().ToList();
+            foreach (string s in list)
+            {
+                ImgCoverInfo element = new ImgCoverInfo();
+                element.CoverFile = "https:" + s;
+                string ArtTit = FoundCD.CDFnd.Artist + " " + FoundCD.CDFnd.Title;
+                if (webService.SavefileLocal(element.CoverFile, ArtTit, element))
+                {
+                    _coverList.Add(element);
+                    numfile++;
+                }
+            }
+            if(numfile > 0)
+                return true;
+            return false;
+        } // End of MatchImg I
+
+        public static bool RetrieveImgByMusicBrainz(AudioCD FoundCD, List<ImgCoverInfo> _coverList, ref int numfile)
+        {
+            string s1 = "https://musicbrainz.org/release/" + FoundCD.CDFnd.Release_ID + "/cover-art";
+            string text = string.Empty;
+            text = webService.webcall(s1);
+            if (text != string.Empty)
+            {
+                if (!MatchImg(ref s1, ref text, _coverList, FoundCD, ref numfile))
+                    return false;
+            }
+            else
+                return false;
+            return true;
+        } // end of RetrieveImgByMusicBrainz I
+
+
+        static public void SearchITunes(AudioCD FoundCD, List<ImgCoverInfo> _coverList, ref int numfile)
+        {
+            LogProj.Info("SearchITunes(AudioCD FoundCD, List<ImgCoverInfo> _coverList, ref int numfile)");
+            string sURL;
+            string Artist = FoundCD.CDFnd.Artist;
+            Artist = Artist.Replace(' ', '+');
+            string ArtTit = FoundCD.CDFnd.Artist + "+" + FoundCD.CDFnd.Title;
+            ArtTit = ArtTit.Replace(' ', '+');
+            string Endstr = "&type=songs";
+            sURL = "https://itunes.apple.com/search?term=" + ArtTit + "+" + Endstr;
+            string sUrl_1 = sURL;
+            try
+            {
+                string js = webService.webcall(sURL);
+                JsonDocument jsonDocument = JsonDocument.Parse(js);
+                var results = jsonDocument.RootElement.GetProperty("results").EnumerateArray();
+                while (results.MoveNext())
+                {
+                    var artname = results.Current.GetProperty("artistName");
+                    if(artname.ValueEquals(FoundCD.CDFnd.Artist))
+                    {
+                        sURL = results.Current.GetProperty("collectionViewUrl").GetString();
+                        break;
+                    }
+                }
+                js = webService.webcall(sURL);
+                MatchImg(ref js, ref _coverList, ArtTit, ref numfile);
+            }
+            catch (Exception e)
+            {
+                LogProj.exception(e.Message);
+                MessageBox.Show(e.Message);
+                return;
+            }
+        } // End of SearchITunes I Version
+
+
+        public static void ManuelSearch(ListCDsFound _cdfound, AudioCD FoundCD, List<ImgCoverInfo> _coverList, ref int numfile, bool cov = true)
+        {
+            string sURL;
+            string Artist = string.Empty;
+            string Title = string.Empty;
+            sURL = RetrieveUrl(_cdfound, ref Artist, ref Title);
+            string page = webService.webcall(sURL);
+            Artist = Artist.Replace('+', '-');
+            Title = Title.Replace('+', '-');
+            List<string> urls = MatchImg(ref page, _coverList, Artist + "-" + Title, ref numfile, false);
+            foreach (string s in urls)
+            {
+                page = string.Empty;
+                page = webService.webcall(s);
+                page = Regex.Replace(page, @"</span>", "\n", RegexOptions.IgnoreCase);
+                Regex rx = new Regex(@"(trackPos_2RCje"">)((\d*)|(\d*-\d*))((?:span class=""trackTitle_CTKp4"">)*)(.*)?", RegexOptions.IgnoreCase);
+                ListCDsFound cdf = new ListCDsFound();
+                _cdfound.Cpy(ref cdf);
+                cdf.tracks = new List<Track>();
+                MatchCollection matches = rx.Matches(page);
+                foreach (Match m in matches)
+                {
+                    Track tr = new Track();
+                    tr.TrNum = m.Groups[2].Value;
+                    tr.TitleTrack = m.Groups[6].Value.Remove(0, m.Groups[6].Value.LastIndexOf(">") + 1);
+                    cdf.tracks.Add(tr);
+                    FoundCD.CDFnd.tracks.Add(tr);
+                    Debug.WriteLine("sc =" + tr.TitleTrack);
+                }
+                Global.listcdfound.Add(cdf);
+            }
+        }
+
+
+
+
+        public static int Disco_gs(AudioCD FoundCD, List<ImgCoverInfo> _coverList, ref int numfile, bool cov = true)
+        {
+            LogProj.Info("Disco_gs(AudioCD FoundCD, List<ImgCoverInfo> _coverList, ref int numfile, bool cov = true)");
+
+            string sURL;
+            string Artist = string.Empty;
+            string Title =  string.Empty;
+            sURL = RetrieveUrl(FoundCD, ref Artist, ref Title);
+            try
+            {
+                string js = webService.webcall(sURL);
+                string ArtTit = Artist.Replace('+', '-') + "-" + Title.Replace('+', '-');
+                List<string> result = MatchImg(ref js, _coverList, ArtTit, ref numfile);
+                
+                js = string.Empty;
+                if(result.Count > 0)
+                {
+                    int firstfive = 0;
+                    foreach (string url in result)
+                    {
+                        try
+                        {
+                            if (firstfive < 3)
+                                firstfive++;
+                            else
+                                break;
+                            js = webService.webcall(url);
+                            if (js.Length > 0)
+                            {
+                                string newurl = Searchim(js);
+                                if (newurl != string.Empty)
+                                {
+                                    Form2 cap = new Form2(ref newurl);
+                                    cap.ShowDialog();
+                                    js = cap.Url;
+                                    MatchGalleryImg(ref js, _coverList, ArtTit, ref numfile);
+                                }
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            LogProj.exception(e.Message);
+                            continue;
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                LogProj.exception(e.Message);
+                return 0;
+            }
+            return numfile;
+        } // End of Disco_gs I Versione
+
+
+
+        private static string RetrieveUrl(AudioCD FoundCD, ref string Artist, ref string Title)
+        {
+            string sURL;
+            Artist = FoundCD.CDFnd.Artist;
+            Title = FoundCD.CDFnd.Title;
+            Artist = Artist.Replace(' ', '+');
+            Title = Title.Replace(' ', '+');
+            string Endstr = "cd&type=all";
+            sURL = "https://www.discogs.com/search/?q=" + Artist + "+" + Title + "+" + Endstr;
+            return sURL;
+        } // End of RetrieveUrl I versione
+
+
+
+        public static int SearchAmz(AudioCD FoundCD, string sURL, List<ImgCoverInfo> _coverList, ref int numfile)
+        {
+            LogProj.Info("SearchAmz(AudioCD FoundCD, string sURL, List<ImgCoverInfo> _coverList, ref int numfile)");
+            try
+            {
+                Form2 textRecognize = new Form2(ref sURL);
+                textRecognize.ShowDialog();
+                sURL = textRecognize.Url;
+                int pos = sURL.IndexOf("P.when(\'A\').register(\"ImageBlockATF\", function(A){");
+                if (pos == -1)
+                    return 0;
+                int endpos = sURL.IndexOf("\'colorToAsin", pos);
+                string ArtTit = FoundCD.CDFnd.Artist + " " + FoundCD.CDFnd.Title;
+                sURL = sURL.Substring(pos, endpos - pos);
+                MatchImg(ref sURL, _coverList, ArtTit, ref numfile);
+            }
+            catch (Exception e)
+            {
+                LogProj.exception(e.Message);
+                MessageBox.Show(e.Message);
+                return 0;
+            }
+            return 1;
+        } // End of SearchAmz I Version
+
+
+
+        public static MatchCollection SerchNewUrl(AudioCD FoundCD, ref string Url)
+        {
+            LogProj.Info("MatchCollection SerchNewUrl(AudioCD FoundCD, ref string Url)");
+            string tit = FoundCD.CDFnd.Title;
+            tit = tit.Replace(" ", "\\+");
+            string artist = FoundCD.CDFnd.Artist;
+            artist = artist.Replace(" ", "\\+");
+            Regex rx = new Regex(@"(a class=""a-link-normal)(.*)(href="")(.*?)" + artist + "\\+" + tit, RegexOptions.IgnoreCase);
+            try
+            {
+                MatchCollection matches = rx.Matches(Url);
+                List<string> mom = new List<string>();
+                string pattern = "href=\"";
+                string Repl = @"https://www.amazon.com";
+                foreach (Match match in matches)
+                {
+                    string rep = Regex.Replace(match.ToString(), pattern, Repl, RegexOptions.IgnoreCase);
+                    rep = rep.Remove(0, rep.IndexOf(Repl));
+                    mom.Add(rep);
+                }
+                mom = mom.Distinct().ToList();
+                Url = string.Empty;
+                foreach (string s in mom)
+                    Url += s + "\n";
+                rx = new Regex(@"(https://)(.*)", RegexOptions.IgnoreCase);//[0-9](-[a-zA-Z0-9]))");
+                matches = rx.Matches(Url);
+                return matches;
+            }
+            catch (Exception e)
+            {
+                LogProj.exception(e.Message);
+                MessageBox.Show(e.Message);
+                return null;
+            }
+        } // End of SerchNewUrl I versione
+
+        public static string UrlSearch(AudioCD FoundCD)
+        {
+            string sURL;
+            string Artist = FoundCD.CDFnd.Artist;
+            Artist = Artist.Replace(' ', '+');
+            string Title = FoundCD.CDFnd.Title;
+            Title = Title.Replace(' ', '+');
+            string Endstr = "cd";
+            sURL = "https://www.amazon.com/s?k=" + Artist + "+" + Title + "+" + Endstr;
+            return sURL;
+        } // end of Urlsearch I
+
+
+        public static void Amz(AudioCD FoundCD, List<ImgCoverInfo> _coverList, ref int numfile)
+        {
+            string Url = Amazon.UrlSearch(FoundCD);
+            Url = Url.ToLower();
+            Form2 textRecognize = new Form2(ref Url);
+            textRecognize.ShowDialog();
+            Url = textRecognize.Url;
+            MatchCollection matches = Amazon.SerchNewUrl(FoundCD, ref Url);
+            foreach(Match s in matches)
+            {
+                SearchAmz(FoundCD, s.Value, _coverList, ref numfile);
+                if(numfile >= 35)
+                {
+                    GC.Collect();
+                    break;
+                }
+            }
+        } // End of I Amz
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

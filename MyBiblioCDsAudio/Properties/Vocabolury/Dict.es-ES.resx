@@ -1,0 +1,309 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="barcodeGridview1" xml:space="preserve">
+    <value>Código de barras</value>
+  </data>
+  <data name="btnCancel" xml:space="preserve">
+    <value>Anular</value>
+  </data>
+  <data name="btninNet" xml:space="preserve">
+    <value>en Internet</value>
+  </data>
+  <data name="btnLocal" xml:space="preserve">
+    <value>Local</value>
+  </data>
+  <data name="btnOK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="btnSave" xml:space="preserve">
+    <value>Salvar</value>
+  </data>
+  <data name="btnsearch" xml:space="preserve">
+    <value>Buscar en</value>
+  </data>
+  <data name="CDCoverControl_HideInfoBtn" xml:space="preserve">
+    <value>Ocultar información</value>
+  </data>
+  <data name="CDCoverControl_ShowInfoBtn" xml:space="preserve">
+    <value>Mostrar información</value>
+  </data>
+  <data name="countryGridview1" xml:space="preserve">
+    <value>País</value>
+  </data>
+  <data name="dtgrvwInfoCd_ToolTipText_SelectCD" xml:space="preserve">
+    <value>Seleccione el CD</value>
+  </data>
+  <data name="dateGridview1" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="editarTit_Artist" xml:space="preserve">
+    <value>Artista</value>
+  </data>
+  <data name="editarTit_Title" xml:space="preserve">
+    <value>Título</value>
+  </data>
+  <data name="editCover_File" xml:space="preserve">
+    <value>Archivo</value>
+  </data>
+  <data name="editCover_Name" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="editCover_SizeX" xml:space="preserve">
+    <value>Tamaño X:</value>
+  </data>
+  <data name="editCover_SizeY" xml:space="preserve">
+    <value>Tamaño Y:</value>
+  </data>
+  <data name="lbAlbum" xml:space="preserve">
+    <value>Álbum</value>
+  </data>
+  <data name="lbArtist" xml:space="preserve">
+    <value>Artista</value>
+  </data>
+  <data name="lbBarcode" xml:space="preserve">
+    <value>Código de barras</value>
+  </data>
+  <data name="lbCountry" xml:space="preserve">
+    <value>País</value>
+  </data>
+  <data name="lbDate" xml:space="preserve">
+    <value>Fecha</value>
+  </data>
+  <data name="lbFile" xml:space="preserve">
+    <value>Archivo</value>
+  </data>
+  <data name="lbGenre" xml:space="preserve">
+    <value>Género</value>
+  </data>
+  <data name="lbName" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="lbSearchCover" xml:space="preserve">
+    <value>Buscar portada...</value>
+  </data>
+  <data name="lbSize" xml:space="preserve">
+    <value>Tamaño</value>
+  </data>
+  <data name="lbTitle" xml:space="preserve">
+    <value>Título</value>
+  </data>
+  <data name="menuop" xml:space="preserve">
+    <value>abrir menú</value>
+  </data>
+  <data name="mnChooseThis" xml:space="preserve">
+    <value>Elija esto</value>
+  </data>
+  <data name="mnEditInfo" xml:space="preserve">
+    <value>Editar información</value>
+  </data>
+  <data name="mnFile" xml:space="preserve">
+    <value>Archivo</value>
+  </data>
+  <data name="mnSaveAS" xml:space="preserve">
+    <value>Salvar como</value>
+  </data>
+  <data name="msgbxCDnotFound" xml:space="preserve">
+    <value>Información no encontrada en MusicBrainz para el CD.\N¿Desea introducir manualmente la información: título, artista y reiniciar la búsqueda?</value>
+  </data>
+  <data name="msgbxcdnotfoundinMBrainz" xml:space="preserve">
+    <value>CD no encontrado en MusicBrainz</value>
+  </data>
+  <data name="msgCDNotFound" xml:space="preserve">
+    <value>CD no encontrado en MusicBrainz.</value>
+  </data>
+  <data name="msgcdnotfoundAlternative" xml:space="preserve">
+    <value>No se ha encontrado información en el CD. Si el CD es su propia compilación, seleccione 'MYCOMPILATION' en 'Tipo de soporte' y, a continuación, el controlador del CD.</value>
+  </data>
+  <data name="msgFormatDatencorrect" xml:space="preserve">
+    <value>Año de publicación demasiado largo.\nInsertar o corregir.\nElija 'No' para guardar sin el año.</value>
+  </data>
+  <data name="msgGenreMiss" xml:space="preserve">
+    <value>Falta Género. ¿Continuo?</value>
+  </data>
+  <data name="msgInsertJear" xml:space="preserve">
+    <value>Escriba el año</value>
+  </data>
+  <data name="msgInternetConnection" xml:space="preserve">
+    <value>Problemas de conexión a Internet.</value>
+  </data>
+  <data name="msgMissngData" xml:space="preserve">
+    <value>Fecha incorrecta o que falta.\n¿Continúo?</value>
+  </data>
+  <data name="msgNameArtistNotFound" xml:space="preserve">
+    <value>Nombre del artista no encontrado:\n¿Continúo sin nombre?</value>
+  </data>
+  <data name="msgNameCDnotFound" xml:space="preserve">
+    <value>Título no encontrado.\n¿Continúo?</value>
+  </data>
+  <data name="msgNameLandNotFound" xml:space="preserve">
+    <value>No se ha encontrado el nombre del país:\n¿Continúo sin nombre?</value>
+  </data>
+  <data name="nameCapDate" xml:space="preserve">
+    <value>Problema Fecha</value>
+  </data>
+  <data name="nameCapGenre" xml:space="preserve">
+    <value>Falta el género</value>
+  </data>
+  <data name="nameCaptionLand" xml:space="preserve">
+    <value>País que falta</value>
+  </data>
+  <data name="nameCaptionmsgBox" xml:space="preserve">
+    <value>Artista desaparecido</value>
+  </data>
+  <data name="nameCaptionTitle" xml:space="preserve">
+    <value>Falta Título</value>
+  </data>
+  <data name="nameform" xml:space="preserve">
+    <value>Nombre y cargo</value>
+  </data>
+  <data name="nameform2" xml:space="preserve">
+    <value>Editar la cobertura de información</value>
+  </data>
+  <data name="releaseidGridview1" xml:space="preserve">
+    <value>Libera ID</value>
+  </data>
+  <data name="titleGridview1" xml:space="preserve">
+    <value>Título</value>
+  </data>
+  <data name="tpHideInfo" xml:space="preserve">
+    <value>Esconder información</value>
+  </data>
+  <data name="tpZoom" xml:space="preserve">
+    <value>Clic derecho para ampliar</value>
+  </data>
+  <data name="TrackDtGrVw_Duration" xml:space="preserve">
+    <value>Duración</value>
+  </data>
+  <data name="TrackDtGrVw_Title" xml:space="preserve">
+    <value>Título</value>
+  </data>
+  <data name="TrackDtGrVw_TrNum" xml:space="preserve">
+    <value>Núm. de Tr.</value>
+  </data>
+  <data name="CoverPath" xml:space="preserve">
+    <value>Portada CD</value>
+  </data>
+  <data name="FileExists" xml:space="preserve">
+    <value>El archivo existe ya.</value>
+  </data>
+  <data name="w_OneMoreCellRows" xml:space="preserve">
+    <value>Debe Seleccionar Una o Más Celdas o Una o Más Filas.</value>
+  </data>
+</root>
