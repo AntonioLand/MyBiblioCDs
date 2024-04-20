@@ -1,0 +1,16 @@
+﻿.bak
+.conf
+.config
+.dcx
+.doc
+.docx
+.ini
+.log
+.md
+.odt
+.pdf
+.rtf
+.txt
+.xml
+.xsd
+.xsl
