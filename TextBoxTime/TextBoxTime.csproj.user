@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <StartAction>Program</StartAction>
+    <StartProgram>D:\Visual_2022\MyBiblioCDs\obj\x64\Debug\MyBiblioCDs.exe</StartProgram>
+    <StartWorkingDirectory>D:\Visual_2022\MyBiblioCDs\obj\x64\Debug\</StartWorkingDirectory>
+    <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <StartAction>Program</StartAction>
+    <StartProgram>D:\Visual_2022\MyBiblioCDs\obj\x64\Debug\MyBiblioCDs.exe</StartProgram>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <StartAction>Program</StartAction>
+    <StartProgram>D:\Visual_2022\MyBiblioCDs\obj\x64\Debug\MyBiblioCDs.exe</StartProgram>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ReferencePath>D:\Visual_2019\Progetto\Finale_DLL_X64\MyBiblioCDsAudio\obj\x64\Debug\</ReferencePath>
+  </PropertyGroup>
+</Project>
